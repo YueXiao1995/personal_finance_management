@@ -13,10 +13,14 @@ class Illestrator():
         total_spend = 0
         for category in spend_by_category:
             total_spend += sum(spend_by_category[category])
+
         labels = []
+        amount = []
         sizes = []
+
         for category in spend_by_category:
             labels.append(category)
+            amount.append(sum(spend_by_category[category]))
             sizes.append(sum(spend_by_category[category]) / total_spend)
 
         explode = (0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1)
@@ -26,7 +30,17 @@ class Illestrator():
         ax1.axis('equal')
         plt.show()
 
-    def draw_figures(self, monthly_spend_sum, daily_spend_sum):
+
+        fig, ax = plt.subplots(figsize=(8, 4))
+
+        ax.barh(labels, amount)
+        labels = ax.get_xticklabels()
+        plt.setp(labels, rotation=45, horizontalalignment='right')
+        ax.set(xlabel='Amount', ylabel='Category',)
+
+
+
+    def draw_trend(self, monthly_spend_sum, daily_spend_sum):
         plt.figure(figsize=(16, 8))
         plt.subplot(221)
         plt.bar(monthly_spend_sum.keys(), monthly_spend_sum.values())

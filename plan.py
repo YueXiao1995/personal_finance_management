@@ -2,14 +2,18 @@
 ** Author: Xiao Yue
 ** Date: 2020-08-23
 """
-class Plan():
+class PlanManager():
     def __init__(self):
         self.income_arrangement_plan = {
-                                        '房租': 0.25,
-                                        '一般消费预算': 0.1, # 1200
-                                        '恋爱基金': 0.05,   # 600
-                                        '特别预算': 0.1,    # 1200
-                                        "可用投资资金": 0.5, # 6000
+                                        '固定开支': {
+                                                    '房租': 3430
+                                                    },
+                                        '非固定开支': {
+                                                    '一般消费预算': 0.15, # 1200
+                                                    '恋爱基金': 0.1,  # 600
+                                                    '特别预算': 0.15,  # 1200
+                                                    "投资预算": 0.6,  # 6000
+                                                    },
                                         }
 
         self.investment_plan = {
@@ -41,3 +45,7 @@ class Plan():
 
     def save_plan_as_file(self):
         pass
+
+    def get_investment_amount(self, income):
+        fixed_spend = sum(self.income_arrangement_plan['固定开支'].values())
+        return self.income_arrangement_plan['非固定开支']['投资预算'] * (sum(income) - fixed_spend)
